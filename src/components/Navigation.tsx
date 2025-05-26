@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Menu, X, Sparkles } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("#hero");
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,6 +14,51 @@ const Navigation = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = [
+      "#hero",
+      "#about",
+      "#services",
+      "#places",
+      "#hotels",
+      "#transportation",
+      "#contact",
+    ];
+    const sections = sectionIds
+      .map((id) => document.querySelector(id))
+      .filter(Boolean) as HTMLElement[];
+
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new window.IntersectionObserver(
+      (entries) => {
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visibleSections.length > 0) {
+          setActiveSection(`#${visibleSections[0].target.id}`);
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px 0px -60% 0px", // Trigger when section is 40% from top
+        threshold: [0.2, 0.5, 0.8],
+      }
+    );
+
+    sections.forEach((section) => {
+      observerRef.current!.observe(section);
+    });
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
   }, []);
 
   const navItems = [
@@ -32,6 +80,7 @@ const Navigation = () => {
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
       setIsOpen(false);
+      setActiveSection(href);
     }
   };
 
@@ -46,11 +95,15 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
-            <div className="flex items-center">
-              <Sparkles className="w-8 h-8 text-purple-600 mr-3" />
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
-                RixTour
-              </h1>
+            <div className="flex items-center gap-1">
+              <div className="w-25 h-12">
+                <img
+                  src={logo}
+                  alt="logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <h1 className="text-2xl font-bold ">RixTour</h1>
             </div>
           </div>
 
@@ -61,7 +114,11 @@ const Navigation = () => {
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleSmoothScroll(e, item.href)}
-                  className="text-gray-700 hover:text-purple-600 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 hover:bg-purple-50 hover:scale-105"
+                  className={`text-gray-700 hover:text-purple-600 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 hover:bg-purple-50 hover:scale-105 ${
+                    activeSection === item.href
+                      ? "bg-purple-600 text-white scale-105 shadow-lg"
+                      : ""
+                  }`}
                 >
                   {item.name}
                 </a>
@@ -88,7 +145,11 @@ const Navigation = () => {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleSmoothScroll(e, item.href)}
-                className="text-gray-700 hover:text-purple-600 block px-4 py-3 rounded-xl text-base font-semibold hover:bg-purple-50 transition-all duration-300"
+                className={`text-gray-700 hover:text-purple-600 block px-4 py-3 rounded-xl text-base font-semibold hover:bg-purple-50 transition-all duration-300 ${
+                  activeSection === item.href
+                    ? "bg-purple-600 text-white scale-105 shadow-lg"
+                    : ""
+                }`}
               >
                 {item.name}
               </a>
