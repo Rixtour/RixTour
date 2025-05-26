@@ -1,95 +1,142 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Plane, Car, Bus, Crown, Shield, Clock, Star, Wifi } from 'lucide-react';
 
 const Transportation = () => {
   const transportOptions = [
     {
-      type: 'Airport Transfer',
-      description: 'Aeroportdan mehmonxonaga va aksincha qulay transfer xizmati',
-      icon: '✈️',
-      features: ['24/7 xizmat', 'Puchta kutish', 'Zamonaviy avtomobillar', 'Professional haydovchilar'],
-      price: 'dan $15'
+      type: 'VIP Airport Transfer',
+      description: 'Luxury avtomobillar bilan aeroportdan mehmonxonaga premium transfer',
+      icon: Plane,
+      gradient: 'from-blue-500 to-cyan-500',
+      features: [
+        { text: '24/7 Premium xizmat', icon: Clock },
+        { text: 'Puchta VIP kutish', icon: Crown },
+        { text: 'Luxury avtomobillar', icon: Star },
+        { text: 'Professional haydovchilar', icon: Shield }
+      ],
+      quality: 'VIP Xizmat'
     },
     {
-      type: 'Shahar Bo\'ylab Sayohat',
-      description: 'Shahardagi barcha diqqatga sazovor joylarni ko\'rib chiqish',
-      icon: '🚗',
-      features: ['Gid xizmati', 'Moslashuvchan vaqt', 'Qulaylik', 'Foto to\'xtashlari'],
-      price: 'dan $30'
+      type: 'Premium City Tours',
+      description: 'Shahardagi barcha diqqatga sazovor joylarni luxury avtomobillar bilan',
+      icon: Car,
+      gradient: 'from-purple-500 to-pink-500',
+      features: [
+        { text: 'Professional gid', icon: Star },
+        { text: 'Moslashuvchan vaqt', icon: Clock },
+        { text: 'Premium qulaylik', icon: Crown },
+        { text: 'Foto to\'xtashlari', icon: Shield }
+      ],
+      quality: 'Premium Tour'
     },
     {
-      type: 'Shaharlararo Transfer',
-      description: 'Samarqand, Buxoro, Xiva va boshqa shaharlar orasida sayohat',
-      icon: '🚌',
-      features: ['Qulay avtobuslar', 'Xavfsizlik', 'To\'xtash joylari', 'Gid ma\'lumotlari'],
-      price: 'dan $50'
+      type: 'Luxury Inter-city',
+      description: 'Samarqand, Buxoro, Xiva orasida hashamatli avtobuslar bilan sayohat',
+      icon: Bus,
+      gradient: 'from-green-500 to-emerald-500',
+      features: [
+        { text: 'VIP avtobuslar', icon: Star },
+        { text: 'Yuqori xavfsizlik', icon: Shield },
+        { text: 'Qulay to\'xtashlar', icon: Clock },
+        { text: 'Professional gid', icon: Crown }
+      ],
+      quality: 'Luxury Class'
     },
     {
-      type: 'VIP Transport',
-      description: 'Hashamatli avtomobillar bilan maxsus xizmat',
-      icon: '🚙',
-      features: ['Premium avtomobillar', 'Shaxsiy haydovchi', 'Wi-Fi', 'Ichimliklar'],
-      price: 'dan $80'
+      type: 'Executive Service',
+      description: 'Maxsus tadbirlar uchun eng yuqori darajadagi executive transport',
+      icon: Crown,
+      gradient: 'from-amber-500 to-orange-500',
+      features: [
+        { text: 'Executive avtomobillar', icon: Crown },
+        { text: 'Shaxsiy haydovchi', icon: Star },
+        { text: 'Premium Wi-Fi', icon: Wifi },
+        { text: 'VIP xizmatlar', icon: Shield }
+      ],
+      quality: 'Executive Level'
     }
   ];
 
   return (
-    <section id="transportation" className="py-20 bg-white">
+    <section id="transportation" className="py-24 bg-gradient-to-br from-gray-50 via-white to-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-20">
+          <div className="inline-flex items-center bg-gradient-to-r from-gray-100 to-slate-100 rounded-full px-6 py-3 mb-6">
+            <Crown className="w-5 h-5 text-gray-600 mr-2" />
+            <span className="text-gray-700 font-semibold">Premium Transport</span>
+          </div>
+          <h2 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-slate-900 to-zinc-900 bg-clip-text text-transparent mb-6">
             Transport Xizmatlari
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Xavfsiz va qulay transport bilan O'zbekiston bo'ylab sayohat qiling
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            Luxury va professional transport xizmatlari bilan O'zbekiston bo'ylab qulay sayohat qiling
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {transportOptions.map((option, index) => (
-            <Card key={index} className="h-full hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-blue-200">
-              <CardHeader className="text-center">
-                <div className="text-5xl mb-4">{option.icon}</div>
-                <CardTitle className="text-lg">{option.type}</CardTitle>
-                <p className="text-gray-600 text-sm">{option.description}</p>
-              </CardHeader>
-              
-              <CardContent>
-                <div className="mb-4">
-                  <div className="text-2xl font-bold text-blue-600">{option.price}</div>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {transportOptions.map((option, index) => {
+            const IconComponent = option.icon;
+            return (
+              <Card key={index} className="group h-full hover:shadow-2xl transition-all duration-500 border-0 bg-white shadow-lg transform hover:-translate-y-4">
+                <CardHeader className="text-center pb-6">
+                  <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-r ${option.gradient} flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <IconComponent className="w-10 h-10 text-white" />
+                  </div>
+                  
+                  <div className="mb-4">
+                    <span className={`inline-block px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r ${option.gradient} text-white`}>
+                      {option.quality}
+                    </span>
+                  </div>
+                  
+                  <CardTitle className="text-xl font-bold text-gray-900 mb-3">
+                    {option.type}
+                  </CardTitle>
+                  <p className="text-gray-600 text-base leading-relaxed">
+                    {option.description}
+                  </p>
+                </CardHeader>
                 
-                <div className="space-y-2">
-                  {option.features.map((feature, fIndex) => (
-                    <div key={fIndex} className="flex items-center text-sm text-gray-700">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                      {feature}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                <CardContent className="px-6 pb-8">
+                  <div className="space-y-4">
+                    {option.features.map((feature, fIndex) => {
+                      const FeatureIcon = feature.icon;
+                      return (
+                        <div key={fIndex} className="flex items-center text-gray-700">
+                          <div className={`w-8 h-8 rounded-full bg-gradient-to-r ${option.gradient} flex items-center justify-center mr-4 shadow-sm`}>
+                            <FeatureIcon className="w-4 h-4 text-white" />
+                          </div>
+                          <span className="font-medium">{feature.text}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
         
-        <div className="mt-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-8 text-white text-center">
-          <h3 className="text-2xl font-bold mb-4">Maxsus Takliflar</h3>
-          <p className="text-lg mb-6">
-            Bir necha kunlik sayohat uchun transport xizmatlariga chegirmalar!
+        <div className="mt-16 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-12 text-white text-center shadow-2xl">
+          <Crown className="w-16 h-16 mx-auto mb-6 text-yellow-300" />
+          <h3 className="text-4xl font-bold mb-6">Premium Paketlar</h3>
+          <p className="text-xl mb-8 max-w-3xl mx-auto">
+            Bir necha kunlik sayohat uchun maxsus premium transport paketlari!
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-3xl font-bold">-15%</div>
-              <div>3-5 kunlik sayohat</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6">
+              <div className="text-4xl font-bold mb-2">VIP</div>
+              <div className="text-lg">3-5 kunlik premium</div>
             </div>
-            <div>
-              <div className="text-3xl font-bold">-25%</div>
-              <div>6-10 kunlik sayohat</div>
+            <div className="bg-white/30 backdrop-blur-sm rounded-2xl p-6 transform scale-105">
+              <div className="text-4xl font-bold mb-2">LUXURY</div>
+              <div className="text-lg">6-10 kunlik hashamat</div>
             </div>
-            <div>
-              <div className="text-3xl font-bold">-35%</div>
-              <div>10+ kunlik sayohat</div>
+            <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6">
+              <div className="text-4xl font-bold mb-2">EXECUTIVE</div>
+              <div className="text-lg">10+ kunlik executive</div>
             </div>
           </div>
         </div>

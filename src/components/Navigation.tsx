@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sparkles } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,25 +34,30 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white/90 backdrop-blur-sm'
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      scrolled 
+        ? 'bg-white/95 backdrop-blur-xl shadow-2xl border-b border-purple-100' 
+        : 'bg-white/90 backdrop-blur-lg shadow-lg'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-amber-600 bg-clip-text text-transparent">
-              O'zbekiston Sayohat
-            </h1>
+            <div className="flex items-center">
+              <Sparkles className="w-8 h-8 text-purple-600 mr-3" />
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
+                O'zbekiston Sayohat
+              </h1>
+            </div>
           </div>
           
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-baseline space-x-1">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleSmoothScroll(e, item.href)}
-                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:bg-blue-50"
+                  className="text-gray-700 hover:text-purple-600 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 hover:bg-purple-50 hover:scale-105"
                 >
                   {item.name}
                 </a>
@@ -63,7 +68,7 @@ const Navigation = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 focus:outline-none transition-colors"
+              className="inline-flex items-center justify-center p-3 rounded-xl text-gray-700 hover:text-purple-600 focus:outline-none transition-colors bg-purple-50 hover:bg-purple-100"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -73,13 +78,13 @@ const Navigation = () => {
 
       {isOpen && (
         <div className="md:hidden animate-fade-in">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/95 backdrop-blur-xl shadow-2xl border-t border-purple-100">
             {navItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleSmoothScroll(e, item.href)}
-                className="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-50 transition-colors"
+                className="text-gray-700 hover:text-purple-600 block px-4 py-3 rounded-xl text-base font-semibold hover:bg-purple-50 transition-all duration-300"
               >
                 {item.name}
               </a>
