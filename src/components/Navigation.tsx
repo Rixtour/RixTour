@@ -1,6 +1,5 @@
-
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Menu, X, Sparkles } from "lucide-react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,46 +9,51 @@ const Navigation = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-    { name: 'Bosh sahifa', href: '#hero' },
-    { name: 'Haqimizda', href: '#about' },
-    { name: 'Xizmatlar', href: '#services' },
-    { name: 'Joylar', href: '#places' },
-    { name: 'Mehmonxonalar', href: '#hotels' },
-    { name: 'Transport', href: '#transportation' },
-    { name: 'Aloqa', href: '#contact' },
+    { name: "Bosh sahifa", href: "#hero" },
+    { name: "Haqimizda", href: "#about" },
+    { name: "Xizmatlar", href: "#services" },
+    { name: "Joylar", href: "#places" },
+    { name: "Mehmonxonalar", href: "#hotels" },
+    { name: "Transport", href: "#transportation" },
+    { name: "Aloqa", href: "#contact" },
   ];
 
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleSmoothScroll = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     e.preventDefault();
     const target = document.querySelector(href);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
       setIsOpen(false);
     }
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-      scrolled 
-        ? 'bg-white/95 backdrop-blur-xl shadow-2xl border-b border-purple-100' 
-        : 'bg-white/90 backdrop-blur-lg shadow-lg'
-    }`}>
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-xl shadow-2xl border-b border-purple-100"
+          : "bg-white/90 backdrop-blur-lg shadow-lg"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
             <div className="flex items-center">
               <Sparkles className="w-8 h-8 text-purple-600 mr-3" />
               <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
-                O'zbekiston Sayohat
+                RixTour
               </h1>
             </div>
           </div>
-          
+
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-1">
               {navItems.map((item) => (
@@ -64,7 +68,7 @@ const Navigation = () => {
               ))}
             </div>
           </div>
-          
+
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
